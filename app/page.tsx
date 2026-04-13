@@ -1,13 +1,16 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Section } from "@/components/layout/section";
-import { processSteps, services, stats } from "@/lib/site-content";
+import { HeroBackground } from "@/components/home/hero-background";
+import { services, stats } from "@/lib/site-content";
 
 export default function Home() {
   return (
     <>
-      <section className="section">
-        <div className="container grid gap-10 lg:grid-cols-2 lg:items-center">
-          <div>
+      <section className="section relative overflow-hidden">
+        <HeroBackground />
+        <div className="container relative z-10 grid gap-10 lg:grid-cols-2 lg:items-center">
+          <div className="py-6">
             <p className="eyebrow">Architectural Precision in Cold Calling</p>
             <h1 className="mt-3 text-balance text-4xl font-black leading-tight md:text-6xl">
               Precision-engineered support to scale your real estate pipeline.
@@ -25,12 +28,22 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="card h-[320px] bg-[url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1600&auto=format&fit=crop')] bg-cover bg-center" />
+          <div className="card ml-auto w-full max-w-[300px] p-4">
+            <p className="text-xs font-bold uppercase tracking-wider text-[var(--color-primary)]">
+              Available Slots
+            </p>
+            <p className="mt-2 text-sm text-[var(--color-muted)]">
+              Next onboarding window opens in 48 hours.
+            </p>
+            <Link href="/order" className="btn-primary mt-4 w-full">
+              Book a Discovery Call
+            </Link>
+          </div>
         </div>
       </section>
 
       <section className="bg-[var(--color-dark)] py-8 text-white">
-        <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-4 text-center ">
           {stats.map((item) => (
             <div key={item.label}>
               <p className="text-3xl font-bold">{item.value}</p>
@@ -64,31 +77,80 @@ export default function Home() {
 
       <Section
         eyebrow="The Blueprint"
-        title="Precision in 3 steps"
-        description="Transparent process from strategy to deployment."
-        className="bg-[var(--color-accent)]"
+        title="Built on the principles of precision engineering"
+        description="Process control, clear data flow, and private operating standards."
       >
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
-          {processSteps.map((step, index) => (
-            <article key={step.title} className="card p-6">
-              <p className="text-sm font-semibold text-[var(--color-primary)]">
-                0{index + 1}
-              </p>
-              <h3 className="mt-3 text-xl font-bold">{step.title}</h3>
-              <p className="mt-2 text-sm text-[var(--color-muted)]">{step.text}</p>
-            </article>
-          ))}
+        <div className="mt-8 grid gap-6 lg:grid-cols-2 lg:items-center">
+          <div className="card relative h-[340px] overflow-hidden">
+            <Image
+              src="/assets/smiling-customer-service-representative.jpg"
+              alt="Precision operations"
+              fill
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              className="object-cover"
+            />
+          </div>
+          <div>
+            <ul className="space-y-4">
+              <li className="card p-4">
+                <p className="font-semibold">Accuracy at Scale</p>
+                <p className="mt-1 text-sm text-[var(--color-muted)]">
+                  Unified workflows keep every lead and interaction measurable.
+                </p>
+              </li>
+              <li className="card p-4">
+                <p className="font-semibold">Data-Driven Execution</p>
+                <p className="mt-1 text-sm text-[var(--color-muted)]">
+                  Daily reporting enables quick optimization and cleaner handoffs.
+                </p>
+              </li>
+              <li className="card p-4">
+                <p className="font-semibold">Private Controls</p>
+                <p className="mt-1 text-sm text-[var(--color-muted)]">
+                  Confidential process design tailored to your acquisition model.
+                </p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </Section>
+
+      <Section
+        eyebrow="Client Success"
+        title="The portfolio of winners"
+        className="bg-[var(--color-dark)] text-white"
+      >
+        <div className="mt-8 grid gap-5 md:grid-cols-2">
+          <article className="rounded-[var(--radius-card)] border border-white/15 bg-white/5 p-6">
+            <p className="text-lg leading-relaxed text-blue-100">
+              &ldquo;Azix didn&apos;t give us leads; they gave us a growth
+              infrastructure.&rdquo;
+            </p>
+            <p className="mt-4 text-sm font-semibold">Sales Team Lead</p>
+          </article>
+          <article className="rounded-[var(--radius-card)] border border-white/15 bg-white/5 p-6">
+            <p className="text-lg leading-relaxed text-blue-100">
+              &ldquo;The quality of leads and system clarity cut our ramp-up time in
+              half.&rdquo;
+            </p>
+            <p className="mt-4 text-sm font-semibold">Founder, Investment Group</p>
+          </article>
         </div>
       </Section>
 
       <Section title="Scale your portfolio with structural certainty.">
-        <div className="card flex flex-col items-center justify-between gap-6 bg-[var(--color-dark)] p-8 text-center text-white md:flex-row md:text-left">
-          <p className="max-w-2xl text-lg text-blue-100">
+        <div className="card flex flex-col items-center justify-between gap-6 bg-[var(--color-accent)] p-8 text-center md:flex-row md:text-left">
+          <p className="max-w-2xl text-lg text-[var(--color-muted)]">
             Join top investor teams that rely on Azix for repeatable growth systems.
           </p>
-          <Link href="/order" className="btn-primary">
-            Book Your Audit
-          </Link>
+          <div className="flex gap-3">
+            <Link href="/order" className="btn-primary">
+              Book Your Audit
+            </Link>
+            <Link href="/services" className="btn-outline">
+              View Pricing Plans
+            </Link>
+          </div>
         </div>
       </Section>
     </>

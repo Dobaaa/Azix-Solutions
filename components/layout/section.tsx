@@ -4,6 +4,7 @@ type SectionProps = {
   description?: string;
   children?: React.ReactNode;
   className?: string;
+  centered?: boolean;
 };
 
 export function Section({
@@ -12,14 +13,25 @@ export function Section({
   description,
   children,
   className = "",
+  centered = false,
 }: SectionProps) {
   return (
     <section className={`section ${className}`}>
       <div className="container">
-        {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-        <h2 className="text-balance text-3xl font-bold md:text-4xl">{title}</h2>
+        {eyebrow ? (
+          <p className={`eyebrow ${centered ? "mx-auto" : ""}`}>{eyebrow}</p>
+        ) : null}
+        <h2
+          className={`text-balance text-3xl font-bold md:text-4xl ${centered ? "text-center" : ""}`}
+        >
+          {title}
+        </h2>
         {description ? (
-          <p className="mt-3 max-w-2xl text-[var(--color-muted)]">{description}</p>
+          <p
+            className={`mt-3 max-w-2xl text-[var(--color-muted)] ${centered ? "mx-auto text-center" : ""}`}
+          >
+            {description}
+          </p>
         ) : null}
         {children}
       </div>
