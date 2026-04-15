@@ -5,6 +5,7 @@ type SectionProps = {
   children?: React.ReactNode;
   className?: string;
   centered?: boolean;
+  stagger?: boolean;
 };
 
 export function Section({
@@ -14,9 +15,14 @@ export function Section({
   children,
   className = "",
   centered = false,
+  stagger = true,
 }: SectionProps) {
   return (
-    <section className={`section ${className}`}>
+    <section
+      className={`section ${className}`}
+      data-animate="reveal"
+      data-stagger={stagger ? "true" : undefined}
+    >
       <div className="container">
         {eyebrow ? (
           <p className={`eyebrow ${centered ? "mx-auto" : ""}`}>{eyebrow}</p>

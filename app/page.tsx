@@ -7,7 +7,7 @@ import { services, stats } from "@/lib/site-content";
 export default function Home() {
   return (
     <>
-      <section className="section relative overflow-hidden">
+      <section className="section relative overflow-hidden" data-animate="reveal" data-stagger="true">
         <HeroBackground />
         <div className="container relative z-10 grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="py-6">
@@ -43,7 +43,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-[var(--color-dark)] py-8 text-white">
+      <section className="bg-[var(--color-dark)] py-8 text-white" data-animate="reveal" data-stagger="true">
         <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-4 text-center ">
           {stats.map((item) => (
             <div key={item.label}>

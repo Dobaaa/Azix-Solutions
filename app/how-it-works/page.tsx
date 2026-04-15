@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function HowItWorksPage() {
   return (
     <>
-      <section className="section pt-10">
+      <section className="section pt-10" data-animate="reveal" data-stagger="true">
         <div className="container grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
             <p className="eyebrow">Our Process</p>
