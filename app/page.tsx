@@ -11,9 +11,10 @@ export default function Home() {
         <HeroBackground />
         <div className="container relative z-10 grid gap-10 lg:grid-cols-2 lg:items-center">
           <div className="py-6">
-            <p className="eyebrow">Architectural Precision in Cold Calling</p>
+            <p className="eyebrow">Precision-engineered support to scale your real estate pipeline.
+            </p>
             <h1 className="mt-3 text-balance text-4xl font-black leading-tight md:text-6xl">
-              Precision-engineered support to scale your real estate pipeline.
+              Architectural <span className="text-[var(--color-primary)]">Precision</span> in Cold Calling
             </h1>
             <p className="mt-4 max-w-xl text-[var(--color-muted)]">
               We build support infrastructure that helps investors close faster with
@@ -139,7 +140,7 @@ export default function Home() {
       </Section>
 
       <Section title="Scale your portfolio with structural certainty.">
-        <div className="card flex flex-col items-center justify-between gap-6 bg-[var(--color-accent)] p-8 text-center md:flex-row md:text-left">
+        <div className="card mt-4  flex flex-col items-center justify-between gap-6 bg-[var(--color-accent)] p-8 text-center md:flex-row md:text-left">
           <p className="max-w-2xl text-lg text-[var(--color-muted)]">
             Join top investor teams that rely on Azix for repeatable growth systems.
           </p>

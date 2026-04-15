@@ -58,7 +58,7 @@ export default function HowItWorksPage() {
       </Section>
 
       <Section title="Ready to redesign your workflow?" className="pt-0">
-        <div className="card bg-[var(--color-dark)] p-8 text-center text-white">
+        <div style={{ backgroundColor: '#071A3A' }} className="card mt-4  p-8 text-center text-white">
           <h2 className="text-3xl font-bold">Ready to redesign your workflow?</h2>
           <p className="mt-2 text-blue-100">
             Start with a tailored audit call and we will map your support architecture.

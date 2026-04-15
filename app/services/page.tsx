@@ -34,7 +34,7 @@ export default function ServicesPage() {
         </div>
       </Section>
       <Section title="Need a custom operating model?">
-        <div className="card p-6 md:p-8">
+        <div className="card mt-4 p-6 md:p-8">
           <p className="text-[var(--color-muted)]">
             We can mix service tiers across lead generation, calling, and back-office
             support into a single delivery workflow.
