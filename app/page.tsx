@@ -44,11 +44,11 @@ export default function Home() {
       </section>
 
       <section className="bg-[var(--color-dark)] py-8 text-white" data-animate="reveal" data-stagger="true">
-        <div className="container grid gap-6 sm:grid-cols-2 lg:grid-cols-4 text-center ">
+        <div className="container  grid gap-6  sm:grid-cols-2 lg:grid-cols-4 text-center ">
           {stats.map((item) => (
-            <div key={item.label}>
-              <p className="text-3xl font-bold">{item.value}</p>
-              <p className="text-sm text-blue-100">{item.label}</p>
+            <div key={item.label} className="flex flex-col items-center justify-center">
+              <p className="text-3xl lg:text-xl  font-bold whitespace-nowrap">{item.value}</p>
+              <p className="text-sm text-blue-100 whitespace-nowrap">{item.label}</p>
             </div>
           ))}
         </div>

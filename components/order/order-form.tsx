@@ -38,11 +38,15 @@ const taskOptions = [
   "Inbox and admin",
 ];
 
+const SUPPORT_EMAIL = "support@azixsolutions.com";
+
 export function OrderForm() {
   const [service, setService] = useState<ServiceType>("ppl");
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle",
   );
+  const [modal, setModal] = useState<"success" | "error" | null>(null);
+  const [serverMessage, setServerMessage] = useState<string | null>(null);
 
   const { register, handleSubmit, reset } = useForm<FormData>({
     defaultValues: { service: "ppl", tasksNeeded: [] },
@@ -56,21 +60,46 @@ export function OrderForm() {
   async function onSubmit(values: FormData) {
     try {
       setStatus("submitting");
+      setServerMessage(null);
       const res = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...values, service }),
       });
-      if (!res.ok) throw new Error("submission failed");
-      setStatus("success");
-      reset({ service, tasksNeeded: [] });
+
+      let data: { ok?: boolean; error?: string } = {};
+      try {
+        data = (await res.json()) as typeof data;
+      } catch {
+        data = {};
+      }
+
+      const ok = res.ok && data.ok !== false;
+
+      if (ok) {
+        setStatus("success");
+        reset({ service, tasksNeeded: [] });
+        setModal("success");
+      } else {
+        setStatus("error");
+        setServerMessage(typeof data.error === "string" ? data.error : null);
+        setModal("error");
+      }
     } catch {
       setStatus("error");
+      setServerMessage(null);
+      setModal("error");
     }
   }
 
+  function closeModal() {
+    setModal(null);
+    setServerMessage(null);
+    setStatus("idle");
+  }
+
   return (
-    <div className="card p-5 md:p-8">
+    <div className="card relative p-5 md:p-8">
       <div className="mb-6 grid grid-cols-1 gap-2 sm:grid-cols-3">
         {tabs.map((tab) => (
           <button
@@ -177,16 +206,66 @@ export function OrderForm() {
         <button type="submit" className="btn-primary w-full" disabled={status === "submitting"}>
           {status === "submitting" ? "Submitting..." : "Initialize Campaign"}
         </button>
-
-        {status === "success" ? (
-          <p className="text-sm text-green-700">Thanks! Your request was received.</p>
-        ) : null}
-        {status === "error" ? (
-          <p className="text-sm text-red-700">
-            Something went wrong. Please try again or contact us directly.
-          </p>
-        ) : null}
       </form>
+
+      {modal ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/45 p-4 backdrop-blur-[2px]"
+          role="presentation"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) closeModal();
+          }}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="booking-modal-title"
+            className="card relative max-w-md border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-2xl"
+          >
+            {modal === "success" ? (
+              <>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-2xl">
+                  ✓
+                </div>
+                <h3 id="booking-modal-title" className="mt-4 text-xl font-bold">
+                  Submission successful
+                </h3>
+                <p className="mt-2 text-sm text-[var(--color-muted)]">
+                  Your booking request was received and confirmed by our server. Our team will
+                  contact you shortly.
+                </p>
+              </>
+            ) : (
+              <>
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-red-500/15 text-2xl">
+                  !
+                </div>
+                <h3 id="booking-modal-title" className="mt-4 text-xl font-bold">
+                  We couldn&apos;t complete your submission
+                </h3>
+                <p className="mt-2 text-sm text-[var(--color-muted)]">
+                  A technical issue occurred while processing your request. Please try again
+                  later, or email us below and we&apos;ll help you right away.
+                </p>
+                {serverMessage ? (
+                  <p className="mt-3 rounded-lg border border-[var(--color-border)] bg-[var(--color-accent)] px-3 py-2 font-mono text-xs text-[var(--color-text)]">
+                    {serverMessage}
+                  </p>
+                ) : null}
+                <a
+                  href={`mailto:${SUPPORT_EMAIL}?subject=Azix%20booking%20issue`}
+                  className="mt-4 inline-flex text-sm font-semibold text-[var(--color-primary)] underline-offset-2 hover:underline"
+                >
+                  {SUPPORT_EMAIL}
+                </a>
+              </>
+            )}
+            <button type="button" className="btn-primary mt-6 w-full" onClick={closeModal}>
+              OK
+            </button>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

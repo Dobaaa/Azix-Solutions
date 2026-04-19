@@ -24,7 +24,7 @@ export default function ContactPage() {
             href="mailto:hello@azixsolutions.com"
             className="mt-5 inline-flex text-lg font-semibold text-[var(--color-primary)]"
           >
-            hello@azixsolutions.com
+            support@azixsolutions.com
           </a>
         </div>
         <div className="card flex flex-col items-start justify-between p-6">

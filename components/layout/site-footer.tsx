@@ -53,7 +53,7 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-[var(--color-border)] py-5 text-center text-xs text-[var(--color-muted)]">
-        © {new Date().getFullYear()} Azix Solutions. Precision in Real Estate Support.
+        ©  Azix Solutions. Precision in Real Estate Support.
       </div>
     </footer>
   );

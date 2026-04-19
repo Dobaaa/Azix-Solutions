@@ -1,10 +1,10 @@
 import { ServiceKey } from "@/lib/theme";
 
 export const stats = [
-  { label: "Revenue Generated", value: "$2.4B+" },
-  { label: "Client Retention", value: "91%" },
-  { label: "Leads Processed", value: "12M+" },
-  { label: "Average Ramp Time", value: "0.2s" },
+  { value: "Revenue Generated", label: "Real Client Work Delivered" },
+  { value: "Clients Reteantion", label: "Client Satisfaction Focused" },
+  { value: "Leads  Processed", label: "High-Quality Solutions Delivered" },
+  { value: "Average Ramp Time", label: "Fast & Optimized Performance" },
 ];
 
 export const services: Array<{
@@ -14,31 +14,31 @@ export const services: Array<{
   description: string;
   bullets: string[];
 }> = [
-  {
-    key: "ppl",
-    title: "Pay Per Lead (PPL)",
-    shortTitle: "PPL",
-    description:
-      "High-intent leads delivered directly to your CRM with strict quality checks.",
-    bullets: ["Guaranteed delivery", "Market-specific targeting", "Fast launch"],
-  },
-  {
-    key: "cold-calling",
-    title: "Expert Cold Calling",
-    shortTitle: "Cold Calling",
-    description:
-      "US-managed callers trained on objection handling and appointment setting.",
-    bullets: ["Daily reports", "Script optimization", "Dedicated caller pods"],
-  },
-  {
-    key: "virtual-assistant",
-    title: "Virtual Assistant",
-    shortTitle: "Virtual Assistant",
-    description:
-      "Admin and CRM support for investor teams that need operational speed.",
-    bullets: ["Part-time or full-time", "Back-office workflows", "CRM management"],
-  },
-];
+    {
+      key: "ppl",
+      title: "Pay Per Lead (PPL)",
+      shortTitle: "PPL",
+      description:
+        "High-intent leads delivered directly to your CRM with strict quality checks.",
+      bullets: ["Guaranteed delivery", "Market-specific targeting", "Fast launch"],
+    },
+    {
+      key: "cold-calling",
+      title: "Expert Cold Calling",
+      shortTitle: "Cold Calling",
+      description:
+        "US-managed callers trained on objection handling and appointment setting.",
+      bullets: ["Daily reports", "Script optimization", "Dedicated caller pods"],
+    },
+    {
+      key: "virtual-assistant",
+      title: "Virtual Assistant",
+      shortTitle: "Virtual Assistant",
+      description:
+        "Admin and CRM support for investor teams that need operational speed.",
+      bullets: ["Part-time or full-time", "Back-office workflows", "CRM management"],
+    },
+  ];
 
 export const processSteps = [
   {
