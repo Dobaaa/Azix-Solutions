@@ -7,6 +7,8 @@ import { SiteFooter } from "@/components/layout/site-footer";
 import { SiteHeader } from "@/components/layout/site-header";
 import { siteConfig, theme } from "@/lib/theme";
 
+const faviconPath = "/assets/Azix%20Solutions%20logo%20design.png?v=2";
+
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -24,6 +26,14 @@ export const metadata: Metadata = {
     template: "%s | Azix Solutions",
   },
   description: siteConfig.description,
+  icons: {
+    icon: [
+      { url: faviconPath, type: "image/png", sizes: "32x32" },
+      { url: faviconPath, type: "image/png", sizes: "192x192" },
+    ],
+    shortcut: faviconPath,
+    apple: faviconPath,
+  },
   openGraph: {
     title: "Azix Solutions",
     description: siteConfig.description,
