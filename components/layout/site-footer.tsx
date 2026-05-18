@@ -16,13 +16,13 @@ export function SiteFooter() {
           <p className="footer-title">Solutions</p>
           <ul className="footer-list">
             <li>
-              <Link href="/services" className="hover:text-[var(--color-primary)]">Pay Per Lead</Link>
+              <Link href="/order?service=ppl" className="hover:text-[var(--color-primary)]">Pay Per Lead</Link>
             </li>
             <li>
-              <Link href="/services" className="hover:text-[var(--color-primary)]">Cold Calling</Link>
+              <Link href="/order?service=cold-calling" className="hover:text-[var(--color-primary)]">Cold Calling</Link>
             </li>
             <li>
-              <Link href="/services" className="hover:text-[var(--color-primary)]">Virtual Assistant</Link>
+              <Link href="/order?service=virtual-assistant" className="hover:text-[var(--color-primary)]">Virtual Assistant</Link>
             </li>
           </ul>
         </div>

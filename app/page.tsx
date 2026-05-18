@@ -2,6 +2,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { Section } from "@/components/layout/section";
 import { HeroBackground } from "@/components/home/hero-background";
+import { ServiceCard } from "@/components/services/service-card";
+import { PplPricing } from "@/components/services/ppl-pricing";
 import { services, stats } from "@/lib/site-content";
 
 export default function Home() {
@@ -61,18 +63,11 @@ export default function Home() {
       >
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {services.map((service) => (
-            <article key={service.key} className="card p-6">
-              <h3 className="text-xl font-semibold">{service.title}</h3>
-              <p className="mt-2 text-sm text-[var(--color-muted)]">
-                {service.description}
-              </p>
-              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-[var(--color-muted)]">
-                {service.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-            </article>
+            <ServiceCard key={service.key} service={service} headingLevel="h3" />
           ))}
+        </div>
+        <div className="mt-10">
+          <PplPricing compact />
         </div>
       </Section>
 

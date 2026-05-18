@@ -1,10 +1,14 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 import type { InputHTMLAttributes, SelectHTMLAttributes } from "react";
+import { ServiceSummary } from "@/components/order/service-summary";
+import { pplLeadPricing } from "@/lib/site-content";
+import type { ServiceKey } from "@/lib/theme";
 
-type ServiceType = "ppl" | "cold-calling" | "virtual-assistant";
+type ServiceType = ServiceKey;
 
 type FormData = {
   service: ServiceType;
@@ -30,6 +34,10 @@ const tabs: Array<{ key: ServiceType; label: string }> = [
   { key: "virtual-assistant", label: "Virtual Assistant" },
 ];
 
+const pplLeadOptions = pplLeadPricing.map(
+  (tier) => `${tier.leads} leads (${tier.priceLabel})`,
+);
+
 const taskOptions = [
   "Lead management",
   "Follow-up coordination",
@@ -40,8 +48,18 @@ const taskOptions = [
 
 const SUPPORT_EMAIL = "support@azixsolutions.com";
 
+function isServiceKey(value: string | null): value is ServiceType {
+  return value === "ppl" || value === "cold-calling" || value === "virtual-assistant";
+}
+
 export function OrderForm() {
-  const [service, setService] = useState<ServiceType>("ppl");
+  const searchParams = useSearchParams();
+  const initialService = useMemo(() => {
+    const fromQuery = searchParams.get("service");
+    return isServiceKey(fromQuery) ? fromQuery : "ppl";
+  }, [searchParams]);
+
+  const [service, setService] = useState<ServiceType>(initialService);
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">(
     "idle",
   );
@@ -49,8 +67,13 @@ export function OrderForm() {
   const [serverMessage, setServerMessage] = useState<string | null>(null);
 
   const { register, handleSubmit, reset } = useForm<FormData>({
-    defaultValues: { service: "ppl", tasksNeeded: [] },
+    defaultValues: { service: initialService, tasksNeeded: [] },
   });
+
+  useEffect(() => {
+    setService(initialService);
+    reset((current) => ({ ...current, service: initialService, tasksNeeded: [] }));
+  }, [initialService, reset]);
 
   const title = useMemo(
     () => tabs.find((tab) => tab.key === service)?.label ?? "Service",
@@ -114,9 +137,11 @@ export function OrderForm() {
       </div>
 
       <h2 className="mb-1 text-2xl font-bold">Book {title}</h2>
-      <p className="mb-6 text-sm text-[var(--color-muted)]">
+      <p className="mb-4 text-sm text-[var(--color-muted)]">
         Fill details below and we will design your launch plan.
       </p>
+
+      <ServiceSummary serviceKey={service} />
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div className="grid gap-4 md:grid-cols-2">
@@ -131,7 +156,11 @@ export function OrderForm() {
 
         {service === "ppl" && (
           <div className="grid gap-4 md:grid-cols-2">
-            <Input label="Leads Required" {...register("leadsRequired")} />
+            <Select
+              label="Lead package"
+              options={pplLeadOptions}
+              {...register("leadsRequired")}
+            />
             <Input label="Target State/Market" {...register("targetMarket")} />
             <Input label="Sqft Range (Min - Max)" {...register("sqftRange")} />
             <Input label="Bed/Bath Count" {...register("bedBathCount")} />

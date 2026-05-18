@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
 import { Section } from "@/components/layout/section";
+import { PplPricing } from "@/components/services/ppl-pricing";
+import { ServiceCard } from "@/components/services/service-card";
 import { services } from "@/lib/site-content";
 
 export const metadata: Metadata = {
@@ -18,19 +19,11 @@ export default function ServicesPage() {
       >
         <div className="mt-8 grid gap-5 md:grid-cols-3">
           {services.map((service) => (
-            <article key={service.key} className="card p-6">
-              <h2 className="text-2xl font-bold">{service.title}</h2>
-              <p className="mt-3 text-[var(--color-muted)]">{service.description}</p>
-              <ul className="mt-4 list-disc space-y-1 pl-5 text-sm text-[var(--color-muted)]">
-                {service.bullets.map((bullet) => (
-                  <li key={bullet}>{bullet}</li>
-                ))}
-              </ul>
-              <Link href="/order" className="btn-outline mt-6 inline-flex">
-                Order Now
-              </Link>
-            </article>
+            <ServiceCard key={service.key} service={service} />
           ))}
+        </div>
+        <div className="mt-10">
+          <PplPricing />
         </div>
       </Section>
       <Section title="Need a custom operating model?">

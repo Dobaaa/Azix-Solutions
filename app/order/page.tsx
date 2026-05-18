@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { OrderForm } from "@/components/order/order-form";
 
 export const metadata: Metadata = {
@@ -28,7 +29,13 @@ export default function OrderPage() {
             <p className="mt-1">Onboarding starts within 48 hours for qualified accounts.</p>
           </div>
         </aside>
-        <OrderForm />
+        <Suspense
+          fallback={
+            <div className="card p-8 text-[var(--color-muted)]">Loading form…</div>
+          }
+        >
+          <OrderForm />
+        </Suspense>
       </div>
     </section>
   );
